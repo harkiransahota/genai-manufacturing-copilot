@@ -1,3 +1,8 @@
-NEBIUS_API_KEY=your_api_key_here
+from dotenv import load_dotenv
+import os
 
-MODEL_NAME=...
+load_dotenv()
+
+API_KEY = os.getenv("NEBIUS_API_KEY")
+MODEL_NAME = os.getenv("MODEL_NAME")
+BASE_URL = os.getenv("BASE_URL")
