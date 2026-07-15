@@ -3,6 +3,7 @@ from openai import OpenAI
 from config import API_KEY, BASE_URL, MODEL_NAME
 from prompts import SYSTEM_PROMPT
 
+from models import AssemblyInstructions
 
 class ManufacturingCopilot:
 
@@ -14,11 +15,11 @@ class ManufacturingCopilot:
         )
 
     def ask(self, question):
-
-        response = self.client.chat.completions.create(
+        print("ask question")
+        completion = self.client.chat.completions.parse(
 
             model=MODEL_NAME,
-
+            
             messages=[
                 {
                     "role": "system",
@@ -28,7 +29,10 @@ class ManufacturingCopilot:
                     "role": "user",
                     "content": question
                 }
-            ]
+            ],
+            
+            response_format=AssemblyInstructions
         )
+        print("return result")
 
-        return response.choices[0].message.content
+        return completion.choices[0].message.parsed
